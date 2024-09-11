@@ -6,9 +6,7 @@ Simply right click on a page, image or link and use the context menu to archive 
 
 ## Installation
 
-Addon can be found in the Firefox Addon store [sometime soon possibly](https://example.com).
-
-You can also load this repository as an [unpacked extension](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox) for development purposes.
+Addon is not yet on the Firefox Addon store, but for now you can load this repository as an [unpacked extension](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox) for development purposes.
 
 ## Usage
 

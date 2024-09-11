@@ -4,7 +4,7 @@
     "version": "1.2.3",
     "permissions": ["contextMenus", "storage", "<all_urls>"],
     "background": {
-        "scripts": ["theArchiver.js"]
+        "scripts": ["archivers.js", "main.js"]
     },
     "options_page": "options/options.html",
     "icons": {
