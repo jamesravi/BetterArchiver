@@ -2,20 +2,27 @@
 
 // Setup variables
 var archive_org = localStorage["thearchiver_archiveorg"];
-var archive_is = localStorage["thearchiver_archiveis"];
+var archive_is = localStorage["thearchiver_archivetoday"];
+var ghost_archive = localStorage["thearchiver_ghostarchive"];
 
 // Save the changes you made to the settings locally
 function save() {
 	 localStorage["thearchiver_archiveorg"] = document.getElementById("archiveorg").checked;
-	 localStorage["thearchiver_archiveis"] = document.getElementById("archiveis").checked;
+	 localStorage["thearchiver_archivetoday"] = document.getElementById("archiveis").checked;
+	 localStorage["thearchiver_ghostarchive"] = document.getElementById("ghostarchive").checked;
 }
 
 // load the saved settings from local Storage
 function load() {	
-	if (null != archive_org)
+	if (null != archive_org) {
 		document.getElementById("archiveorg").checked = toBool(archive_org);
-	if (null != archive_is)
+	}
+	if (null != archive_is) {
 		document.getElementById("archiveis").checked = toBool(archive_is);
+	}
+	if (null != ghost_archive) {
+		document.getElementById("ghostarchive").checked = toBool(ghost_archive);
+	}
 } 
 
 // Close options and reload the extension

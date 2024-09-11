@@ -1,14 +1,17 @@
 {
-  "name": "The Archiver",
-  "description": "Save Page, Image & Link Urls to the Wayback Machine, Archive.is",
-  "version": "1.2.2",
-  "permissions": ["contextMenus","storage"],
-  "background": {
-    "scripts": ["theArchiver.js"]
-  },
-  "options_page": "options/options.html",
-  "icons": { "16": "images/theArchiver16.png",
-           "48": "images/theArchiver48.png",
-          "128": "images/theArchiver128.png" },
-  "manifest_version": 2
+    "name": "Better Archiver",
+    "description": "Save URLs to the Wayback Machine, Archive.is and Ghost Archive",
+    "version": "1.2.3",
+    "permissions": ["contextMenus", "storage", "<all_urls>"],
+    "background": {
+        "scripts": ["theArchiver.js"]
+    },
+    "options_page": "options/options.html",
+    "icons": {
+        "16": "images/logo16.png",
+        "48": "images/logo48.png",
+        "128": "images/logo128.png"
+    },
+    "manifest_version": 2,
+    "incognito": "spanning"
 }

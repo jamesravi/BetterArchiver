@@ -1,95 +1,125 @@
-// Simple WebExtension (Chrome & Firefox Tested) to make it easier to Save Page, Image or Link Urls or to Check if they have been saved previously
-// uses Archive.org's Wayback Machine, Archive.is and Webcite
-// Cathal McNally
-// February 2017
-// ver 1.2.2
+// Simple WebExtension (tested in Firefox) to make it easier to save a page, image or link url or to check if they have been saved previously
+// Uses Archive.org's Wayback Machine, Archive.today and Ghost Archive
+// By James Ravindran (built on a previous extension by Cathal McNally)
+// Version 1.2.3
 
-// changelog
-// ver 1.0    Initial version
-// ver 1.1    Fixed a url error for settings page
-// ver 1.2    Right clicking on an image or a Link will now also send the url for backup.
-// ver 1.2.1  Fixed a silly file Casing bug for Firefox.
-// ver 1.2.2  [Oct 2019] This update removes the archival service webCite as it no longer accepts public url's
+// Changelog
+// 1.2.3: Modified Cathal McNally's extension, added Ghost Archive
 
-(function(){
-	// Get settings saved in local storage
-	var archive_org = localStorage["thearchiver_archiveorg"];
-	var archive_is = localStorage["thearchiver_archiveis"];
-	var firstRun = localStorage["thearchiver_firstRun"];
-	
-	// Dirty but it works
-	// Check if firstRun doesnt exist, If so populate variables
-	if(firstRun == undefined){
-		// No need to check each, archive.org will do
-		if (archive_org == undefined){
-			archive_org = "true";
-			archive_is = "true";
-			
-			// turn firstRun off
-			firstRun = 0;
-			
-			// lets set the local Storage so the options Dialog is setup correctly on first run
-			localStorage["thearchiver_archiveorg"] = archive_org;
-			localStorage["thearchiver_archiveis"] = archive_is;
+(function() {
+	function loadSettings() {
+		// Get settings saved in local storage
+		var archive_org = localStorage["thearchiver_archiveorg"];
+		var archive_today = localStorage["thearchiver_archivetoday"];
+		var ghost_archive = localStorage["thearchiver_ghostarchive"];
+		var firstRun = localStorage["thearchiver_firstRun"];
+		
+		// Check if firstRun doesn't exist, if so populate variables
+		if (firstRun == undefined) {
+			// No need to check each, archive.org will do
+			if (archive_org == undefined) {
+				archive_org = "true";
+				archive_today = "true";
+				ghost_archive = "true";
+				
+				// turn firstRun off
+				firstRun = 0;
+				
+				// sets local Storage so the options dialog is set up correctly on first run
+				localStorage["thearchiver_archiveorg"] = archive_org;
+				localStorage["thearchiver_archivetoday"] = archive_today;
+				localStorage["thearchiver_ghostarchive"] = ghost_archive;
+			}
 		}
+
+		return [archive_org, archive_today, ghost_archive];
 	}
+
+	var [archive_org, archive_today, ghost_archive] = loadSettings()
 	
-	// Depending on the options you have set send the currently opened page to an Archival Service
-	function saveIt(info){
+	// Depending on the options you have set send the currently opened page to an archival service
+	function saveIt(info) {
+		var [archive_org, archive_today, ghost_archive] = loadSettings()
+
 		var linkClicked = "";
-		if (info.linkUrl){
+		if (info.linkUrl) {
 			linkClicked = info.linkUrl;
-		} else if (info.mediaType === "image"){
+		} else if (info.mediaType === "image") {
 			linkClicked = info.srcUrl;
-		} else{
+		} else {
 			linkClicked = info.pageUrl;
 		} 
-		// Save with the Wayback Machine
-		if(archive_org == "true"){
+
+		if (archive_org == "true") {
 			chrome.tabs.create({ 
-				url: "http://web.archive.org/save/" + linkClicked,
+				url: "https://web.archive.org/save/" + linkClicked,
 				active: false,
 			});
 		}
 		
-		// Save with Archive.is
-		if(archive_is == "true"){
+		if (archive_today == "true") {
 			chrome.tabs.create({ 
-				url: "https://archive.is/?run=1&url=" + linkClicked,
+				url: "https://archive.today/?run=1&url=" + linkClicked,
 				active: false,
+			});
+		}
+
+		if (ghost_archive == "true") {
+			fetch("https://ghostarchive.org/archive2", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+				},
+				body: new URLSearchParams({
+					"archive": linkClicked
+				})
+				//referrer: "https://ghostarchive.org/"
+			}).then(function(res) {
+				chrome.tabs.create({ 
+					url: res.url,
+					active: false,
+				})
 			});
 		}
 	}
 
-	// Check if any of the Archival services have saved the page already
-	function checkIt(info){
+	// Check if any of the archival services have saved the page already
+	function checkIt(info) {
+		var [archive_org, archive_today, ghost_archive] = loadSettings()
+
 		var linkClicked = "";
-		if (info.linkUrl){
+		if (info.linkUrl) {
 			linkClicked = info.linkUrl;
-		} else if (info.mediaType === "image"){
+		} else if (info.mediaType === "image") {
 			linkClicked = info.srcUrl;
-		}else{
+		} else {
 			linkClicked = info.pageUrl;
 		}
-		// Check the Wayback Machine
-		if(archive_org == "true"){
+
+		if (archive_org == "true") {
 			chrome.tabs.create({
-				url: "http://web.archive.org/web/" + linkClicked,
+				url: "https://web.archive.org/web/" + linkClicked,
 				active: false,
 			});
 		}
 		
-		// Check Archive.is
-		if(archive_is == "true"){
+		if (archive_today == "true") {
 			chrome.tabs.create({
-				url: "http://archive.is/" + linkClicked,
+				url: "http://archive.today/" + linkClicked,
+				active: false,
+			});
+		}
+
+		if (ghost_archive == "true") {
+			chrome.tabs.create({
+				url: "https://ghostarchive.org/search?term=" + encodeURI(linkClicked),
 				active: false,
 			});
 		}
 	}
 
 	// Open settings
-	function goToSettings(){
+	function goToSettings() {
 		chrome.tabs.create({ 
 		url: "/options/options.html",
 	  });
@@ -97,13 +127,13 @@
 	
 	// Create context menus
 	chrome.contextMenus.create({
-	  "title": "Save It",
+	  "title": "Save it",
 	  "contexts": ["page", "link", "image"],
 	  "onclick": saveIt}
 	);
 
 	chrome.contextMenus.create({
-	  "title": "Check It",
+	  "title": "Check it",
 	  "contexts": ["page", "link", "image"],
 	  "onclick": checkIt}
 	);
