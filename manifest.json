@@ -1,7 +1,7 @@
 {
     "name": "Better Archiver",
     "description": "Save URLs to the Wayback Machine, Archive.is and Ghost Archive",
-    "version": "1.2.3",
+    "version": "1.2.6",
     "permissions": ["contextMenus", "storage", "<all_urls>"],
     "background": {
         "scripts": ["archivers.js", "main.js"]
@@ -13,5 +13,10 @@
         "128": "images/logo128.png"
     },
     "manifest_version": 2,
-    "incognito": "spanning"
+    "incognito": "spanning",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "betterarchiver@jamesravindran.com"
+        }
+    }
 }

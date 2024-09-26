@@ -17,3 +17,11 @@ Addon is not yet on the Firefox Addon store, but for now you can load this repos
 ## Screenshots
 
 (none yet)
+
+## License
+
+This extension is licensed under GPLv3 or later.
+
+Portions of this extension are based on code from The Archiver web extension by Cathal McNally, originally licensed under the MIT License.
+
+See LICENSE.md for more info.

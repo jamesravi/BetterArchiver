@@ -1,3 +1,9 @@
+// Copyright (C) 2024 James Ravindran
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
+// Portions of this file are based on code originally licensed under the MIT License.
+// See LICENSE.md for details.
+
 // Options dialog
 
 // Save the changes you made to the settings locally

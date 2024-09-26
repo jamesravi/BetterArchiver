@@ -1,3 +1,6 @@
+// Copyright (C) 2024 James Ravindran
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 function Archiver(name, id, checkfunc, savefunc) {
     this.name = name;
     this.id = id;

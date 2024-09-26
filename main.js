@@ -1,3 +1,9 @@
+// Copyright (C) 2024 James Ravindran
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
+// Portions of this file are based on code originally licensed under the MIT License.
+// See LICENSE.md for details.
+
 // Simple WebExtension (tested in Firefox) to make it easier to save a page, image or link url or to check if they have been saved previously
 // Uses Archive.org's Wayback Machine, Archive.today and Ghost Archive
 // By James Ravindran (built on a previous extension by Cathal McNally)
