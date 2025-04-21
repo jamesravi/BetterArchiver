@@ -10,14 +10,14 @@
 
 function loadSettings() {
 	// Get settings saved in local storage
-	var archiver_states = localStorage["betterarchiver"];
+	var archiver_states = localStorage["multiarchiver"];
 
 	// Check if firstRun doesn't exist, if so populate variables
 	if (archiver_states == undefined) {			
 		// Sets localStorage so the options dialog is set up correctly on first run
-		localStorage["betterarchiver"] = get_archivers_json();
+		localStorage["multiarchiver"] = get_archivers_json();
 	}
-	var result = JSON.parse(localStorage["betterarchiver"]);
+	var result = JSON.parse(localStorage["multiarchiver"]);
 
 	return result;
 }
@@ -155,7 +155,7 @@ function createSubContextMenus(baseid, title, func) {
 
 chrome.contextMenus.create({
 	"id": "base",
-	"title": "Better Archiver",
+	"title": "MultiArchiver",
 	"contexts": ["page", "link", "image"]
 });
 

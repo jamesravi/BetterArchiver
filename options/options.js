@@ -11,12 +11,12 @@ function save() {
 	for (archiverid of Object.keys(archivers)) {
 		archivers[archiverid].enabled = document.getElementById(archiverid).checked
 	}
-	localStorage["betterarchiver"] = get_archivers_json();
+	localStorage["multiarchiver"] = get_archivers_json();
 }
 
 // Load the saved settings from localStorage
 function load() {
-	var result = JSON.parse(localStorage["betterarchiver"])
+	var result = JSON.parse(localStorage["multiarchiver"])
 	for (var id of Object.keys(result)) {
 		var enabled = result[id];
 		var labelElement = document.createElement("label")

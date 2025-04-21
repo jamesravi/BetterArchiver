@@ -1,4 +1,4 @@
-# Better Archiver licenses
+# MultiArchiver licenses
 
 This extension is licensed under GPLv3 or later.
 

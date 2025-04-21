@@ -1,5 +1,5 @@
 {
-    "name": "Better Archiver",
+    "name": "MultiArchiver",
     "description": "Save URLs to the Wayback Machine, Archive.is and Ghost Archive",
     "version": "1.2.6",
     "permissions": ["contextMenus", "storage", "<all_urls>"],
@@ -16,7 +16,7 @@
     "incognito": "spanning",
     "browser_specific_settings": {
         "gecko": {
-            "id": "betterarchiver@jamesravindran.com"
+            "id": "multiarchiver@jamesravindran.com"
         }
     }
 }
